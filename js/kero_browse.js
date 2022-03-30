@@ -1388,7 +1388,7 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 								id += "_" + num;
 							}
 							var bam = (type == "bam")? 
-								new WgBam2(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null}):
+								new WgCram(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null}):
 								new WgBigWig2(id, "#008844", id, fileBai, {"localFlg": true});
 							try {
 								m.addCreateParts(bam);
