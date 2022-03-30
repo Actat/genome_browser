@@ -1368,7 +1368,12 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 						var fileBam = files[1];
 						var type;
 						
-						if(fileBai.name.substr(-4) == ".bam" && fileBam.name.substr(-4) == ".bai") {
+						if(fileBai.name.substr(-5) == ".cram" && fileBam.name.substr(-5) == ".crai") {
+							type = "cram";
+							var temp = fileBai; fileBai = fileBam; fileBam = temp;
+						} else if(fileBai.name.substr(-5) == ".crai" && fileBam.name.substr(-5) == ".cram") {
+							type = "cram";
+						} else if(fileBai.name.substr(-4) == ".bam" && fileBam.name.substr(-4) == ".bai") {
 							type = "bam";
 							var temp = fileBai; fileBai = fileBam; fileBam = temp;
 						} else if(fileBai.name.substr(-4) == ".bai" && fileBam.name.substr(-4) == ".bam") {
@@ -1376,7 +1381,7 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 						} else if(fileBai.name.substr(-3) == ".bw") {
 							type = "bw";
 						} else {
-							alert('Please select a ".bw" file OR ".bam" and ".bai" files!');
+							alert('Please select a ".bw" file OR ".bam" and ".bai" OR ".cram" and ".crai" files!');
 							return;
 						}
 						
@@ -1387,9 +1392,14 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 							if(num != 1) {
 								id += "_" + num;
 							}
-							var bam = (type == "bam")? 
-								new WgCram(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null}):
-								new WgBigWig2(id, "#008844", id, fileBai, {"localFlg": true});
+							var bam;
+							if(type == "cram") {
+								bam = new WgCram(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null})
+							} else if(type == "bam") {
+								bam = new WgBam2(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null})
+							} else {
+								bam = new WgBigWig2(id, "#008844", id, fileBai, {"localFlg": true});
+							}
 							try {
 								m.addCreateParts(bam);
 								m.changeTrack(id);
