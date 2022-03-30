@@ -1360,6 +1360,7 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 					$(toolbarSelector + " #add_bam").on("click", function() {
 						var files = $("#files")[0].files;
 						if (files.length != 1 && files.length != 2) {
+							// TODO: cram, crai, fa, fai -> 4 files
 							alert('Please select a ".bw" file OR ".bam" and ".bai" files!');
 							return;
 						}
