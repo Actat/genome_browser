@@ -29,7 +29,7 @@ var WgCram = function(name, dispName, bamUrl, option) {
 	//readが積み重なりすぎていて全部表示できない領域
 	this.overReg = {};
 	this.overRegList = [];
-	this.bam = new BamData(bamUrl, {localFlg: this.option.localFlg});
+	this.bam = new CramData(bamUrl, {localFlg: this.option.localFlg});
 };
 WgCram.prototype = new WgRoot();
 //描画する(Y位置, 裏画面の幅, chr, 裏画面のstart, 裏画面のend)
