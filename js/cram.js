@@ -10,6 +10,7 @@ class CramData {
 		if(option.timeout === undefined) option.timeout = 300;
 
 		var func = (reads)=>{
+			var result = [];
 			for (var read of reads) {
 				var cigarLn = [];
 				var cigarOp = [""];
@@ -40,8 +41,9 @@ class CramData {
 					cigarLn,
 					cigarOp
 				];
-				callback(arr);
+				result.push(arr);
 			}
+			callback(result);
 		};
 
 		try{

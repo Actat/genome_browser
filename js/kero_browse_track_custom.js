@@ -511,10 +511,10 @@ WgCram.prototype.accessObj = function(chr, binStart, binEnd, powP, accDefault) {
 };
 WgCram.prototype.accessBamFile = function(chr, bpStart, bpEnd, accDefault, dataMagic) {
 	var m = this;
-	this.bam.readWaitReader(chr, bpStart, bpEnd, function(fetcher) {
+	this.bam.readWaitReader(chr, bpStart, bpEnd, function(result) {
 		var counter = 0;
 		var reads = dataMagic[1];
-		for(var alnEach of fetcher()) {
+		for(var alnEach of result) {
 			reads.push({
 				qname: alnEach[3], flag: alnEach[2], pos: alnEach[0], mapq: alnEach[1],
 				cigar: alnEach[4], seq: alnEach[6], posEnd: alnEach[5], id: alnEach[11],
