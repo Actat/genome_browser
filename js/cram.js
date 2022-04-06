@@ -37,7 +37,7 @@ class CramData {
 					read.mateRefId,
 					read.matePos - 1,
 					read.templateSize,
-					undefined,
+					read.samString,
 					cigarLn,
 					cigarOp
 				];
