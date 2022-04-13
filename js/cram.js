@@ -22,6 +22,7 @@ class CramData {
 					} else {
 						cigarLn.push(Number(num_buf));
 						cigarOp.push(chr);
+						num_buf = "";
 					}
 				}
 
