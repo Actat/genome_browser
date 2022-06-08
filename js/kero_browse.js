@@ -1359,16 +1359,34 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 					$(toolbarSelector + " #add_bam").off("click");
 					$(toolbarSelector + " #add_bam").on("click", function() {
 						var files = $("#files")[0].files;
-						if (files.length != 1 && files.length != 2) {
-							alert('Please select a ".bw" file OR ".bam" and ".bai" files!');
+						if (files.length != 1 && files.length != 2 && files.length != 4) {
+							alert('Please select a ".bw" file OR ".bam" and ".bai" OR ".cram", ".crai", ".fa" and ".fai" files!');
 							return;
 						}
 						
 						var fileBai = files[0];
 						var fileBam = files[1];
+						var cram = [undefined, undefined, undefined, undefined];
 						var type;
 						
-						if(fileBai.name.substr(-4) == ".bam" && fileBam.name.substr(-4) == ".bai") {
+						if(files.length == 4){
+							type = "cram"
+							for(var file of files) {
+								if(file.name.substr(-5) == ".cram") {
+									cram[0] = file;
+								} else if(file.name.substr(-5) == ".crai") {
+									cram[1] = file;
+								} else if(file.name.substr(-3) == ".fa") {
+									cram[2] = file;
+								} else if(file.name.substr(-4) == ".fai") {
+									cram[3] = file;
+								}
+							}
+							if(typeof cram[0] === "undefined" || typeof cram[1] === "undefined" || typeof cram[2] === "undefined" || typeof cram[3] === "undefined") {
+								alert('Please select a ".bw" file OR ".bam" and ".bai" OR ".cram", ".crai", ".fa" and ".fai" files!');
+								return;
+							}
+						}else if(fileBai.name.substr(-4) == ".bam" && fileBam.name.substr(-4) == ".bai") {
 							type = "bam";
 							var temp = fileBai; fileBai = fileBam; fileBam = temp;
 						} else if(fileBai.name.substr(-4) == ".bai" && fileBam.name.substr(-4) == ".bam") {
@@ -1376,7 +1394,7 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 						} else if(fileBai.name.substr(-3) == ".bw") {
 							type = "bw";
 						} else {
-							alert('Please select a ".bw" file OR ".bam" and ".bai" files!');
+							alert('Please select a ".bw" file OR ".bam" and ".bai" OR ".cram", ".crai", ".fa" and ".fai" files!');
 							return;
 						}
 						
@@ -1387,9 +1405,14 @@ var GenomeViewer = function(width, height, genome, posStr, divId, viewerPartsDat
 							if(num != 1) {
 								id += "_" + num;
 							}
-							var bam = (type == "bam")? 
-								new WgBam2(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null}):
-								new WgBigWig2(id, "#008844", id, fileBai, {"localFlg": true});
+							var bam;
+							if(type == "cram") {
+								bam = new WgCram(id, id, cram, {"localFlg": true, "seqUrl": null})
+							} else if(type == "bam") {
+								bam = new WgBam2(id, id, [fileBam, fileBai], {"localFlg": true, "seqUrl": null})
+							} else {
+								bam = new WgBigWig2(id, "#008844", id, fileBai, {"localFlg": true});
+							}
 							try {
 								m.addCreateParts(bam);
 								m.changeTrack(id);
