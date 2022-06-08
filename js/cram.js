@@ -12,35 +12,21 @@ class CramData {
 		var func = (reads)=>{
 			var result = [];
 			for (var read of reads) {
-				var cigarLn = [];
-				var cigarOp = [""];
-				var cigar = read.cigar.split("");
-				var num_buf = "";
-				for (var chr of cigar) {
-					if (/[0-9]/.test(chr)) {
-						num_buf += chr;
-					} else {
-						cigarLn.push(Number(num_buf));
-						cigarOp.push(chr);
-						num_buf = "";
-					}
-				}
-
 				var arr = [
 					read.position,
 					read.mappingQuality,
 					read.bf_,
 					read.readName,
 					read.cigar,
-					read.position + read.readLength - 1,
+					read.positionEnd,
 					read.seq,
 					read.qualityScore,
 					read.mateRefId,
 					read.matePos - 1,
 					read.templateSize,
 					read.samString,
-					cigarLn,
-					cigarOp
+					read.cigarLn,
+					read.cigarOp
 				];
 				result.push(arr);
 			}
