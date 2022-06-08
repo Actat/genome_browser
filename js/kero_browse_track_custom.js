@@ -645,8 +645,8 @@ class Fasta {
 		if (!fa || !fai) {
 			throw "Files are Falsy";
 		}
-		this.fa_ = new FileHandler(fa);
-		this.fai_ = new FileHandler(fai);
+		this.fa_ = new FileHandler(fa, false);
+		this.fai_ = new FileHandler(fai, false);
 		this.faindex_ = undefined;
 		this.changeBase_ = {
 			A: "T",
