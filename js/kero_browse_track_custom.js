@@ -534,7 +534,7 @@ WgCram.prototype.accessBamFile = function(chr, bpStart, bpEnd, accDefault, dataM
 	});
 };
 
-var WgFasta = function(fil, option) {
+var WgFasta = function(fa, fai, option) {
 	this.imgObj, this.ojson;
 	
 	this.option = (option !== undefined)? option: {};
@@ -549,7 +549,7 @@ var WgFasta = function(fil, option) {
 	this.height = 12;
 	this.y;
 	
-	this.wg = new WgenomeData(fil);
+	this.fasta = new Fasta(fa, fai);
 };
 WgFasta.prototype = new WgRoot();
 WgFasta.prototype.paint = function(y, width, chr, start, end, strand) {

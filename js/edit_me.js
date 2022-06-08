@@ -5,7 +5,7 @@ $(function() {
 	//var oseq = new WgSeqF("http://kero.hgc.jp/data/hg38/data.dat");
 	//var orefseq = new WgRefseqF("http://kero.hgc.jp/data/hg38/genes.sorted.bb");
 	var oseq = new WgSeqF("test_data/data.dat");
-	var fasta = new WgFasta("test_data/data.dat");
+	var fasta = new WgFasta("test_data/hg38_chr22_cut.fa", "test_data/hg38_chr22_cut.fa.fai");
 	var orefseq = new WgRefseqF("test_data/genes.sorted.bb", "reference_gene", "Reference gene");
 	var obigwig = new WgBigWig2("obigwig", "#5555ff", "only chr22 ENCODE demo data", "test_data/ENCFF437TPA_chr22_cut.sorted.bw");
 	
