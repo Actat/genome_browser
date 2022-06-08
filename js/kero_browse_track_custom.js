@@ -566,8 +566,8 @@ WgFasta.prototype.paint = function(y, width, chr, start, end, strand) {
 		for(var i = parseInt(start); i <= parseInt(end + 1); i ++) {
 			var bin = Math.floor((i - 1) / reg);
 			//以下はもっと効率よくできるかも
-			if(this.ojson["0"] && this.ojson["0"][chr + "|" + bin] && this.ojson["0"][chr + "|" + bin]["sequence"]) {
-				var char = this.ojson["0"][chr + "|" + bin]["sequence"].charAt(i - 1 - bin * reg);
+			if(this.ojson["0"] && this.ojson["0"][chr + "|" + bin] && this.ojson["0"][chr + "|" + bin]["fasta"]) {
+				var char = this.ojson["0"][chr + "|" + bin]["fasta"].charAt(i - 1 - bin * reg);
 				if(strand == "-") {
 					var tmp = char;
 					if(char == "A") tmp = "T"; if(char == "a") tmp = "t";
@@ -607,10 +607,10 @@ WgFasta.prototype.getMenuPopup = function() {
 	return htmlStr;
 };
 WgFasta.prototype.getName = function() {
-	return "sequence";
+	return "fasta";
 };
 WgFasta.prototype.getItemDispName = function() {
-	return "Sequence";
+	return "Fasta";
 };
 WgFasta.prototype.getButtonInfo = function() {
 	var buttonColor = (this.option.buttonColor === undefined)? 
