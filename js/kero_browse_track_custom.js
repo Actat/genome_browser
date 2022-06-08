@@ -626,7 +626,7 @@ WgFasta.prototype.accessObj = function(chr, binStart, binEnd, powP, accDefault) 
 	var bpStart = binStart * bpPerPixel * POW_REG + 1;
 	var bpEnd = (parseInt(binStart) + 1) * bpPerPixel * POW_REG;
 	
-	this.wg.readWaitReader(chr, bpStart, bpEnd, function(fetcher) {
+	this.fasta.readWaitReader(chr, bpStart, bpEnd, function(fetcher) {
 		var seq = "";
 		for(var seqEach of fetcher()) {
 			seq += seqEach;
