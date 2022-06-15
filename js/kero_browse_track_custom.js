@@ -648,7 +648,7 @@ var WgFastaAmino = function(fa, fai, option) {
 		(this.option.buttonOnOffFlg === undefined)? false: option.buttonOnOffFlg;
 	
 	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
-	this.height = 12;
+	this.height = 72;
 	this.y;
 	
 	this.fasta = new Fasta(fa, fai);
@@ -668,32 +668,144 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 		for(var i = parseInt(start); i <= parseInt(end + 1); i ++) {
 			var bin = Math.floor((i - 1) / reg);
 			//以下はもっと効率よくできるかも
-			if(this.ojson["0"] && this.ojson["0"][chr + "|" + bin] && this.ojson["0"][chr + "|" + bin]["fasta"]) {
-				var char = this.ojson["0"][chr + "|" + bin]["fasta"].charAt(i - 1 - bin * reg);
+			if(this.ojson["0"] && this.ojson["0"][chr + "|" + bin] && this.ojson["0"][chr + "|" + bin]["fastaamino"]) {
+				var rev_comp = function(char){
+					var changeBase = {
+						A: "T", T: "A", G: "C", C: "G",
+						R: "Y", Y: "R", M: "K", K: "M",
+						B: "V", V: "B", D: "H", H: "D",
+						a: "t", t: "a", g: "c", c: "g",
+						r: "y", y: "r", m: "k", k: "m",
+						b: "v", v: "b", d: "h", h: "d",
+					};
+					return changeBase[char];
+				}
+				var char0 = this.ojson["0"][chr + "|" + bin]["fastaamino"].charAt(i - 2 - bin * reg);
+				var char1 = this.ojson["0"][chr + "|" + bin]["fastaamino"].charAt(i - 1 - bin * reg);
+				var char2 = this.ojson["0"][chr + "|" + bin]["fastaamino"].charAt(i - 0 - bin * reg);
+				if (i - 2 - bin * reg < 0) {
+					char0 = this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].charAt(this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].length - 1);
+				} else if (i - 0 - bin * reg >= this.ojson["0"][chr + "|" + bin]["fastaamino"].length) {
+					char2 = this.ojson["0"][chr + "|" + (bin + 1)]["fastaamino"].charAt(0);
+				}
 				if(strand == "-") {
-					var tmp = char;
-					if(char == "A") tmp = "T"; if(char == "a") tmp = "t";
-					if(char == "C") tmp = "G"; if(char == "c") tmp = "g";
-					if(char == "G") tmp = "C"; if(char == "g") tmp = "c";
-					if(char == "T") tmp = "A"; if(char == "t") tmp = "a";
-					char = tmp;
+					var tmp = char0;
+					char0 = rev_comp(char2);
+					char1 = rev_comp(char1);
+					char2 = rev_comp(tmp);
 				}
 				var x1 = (i - start) * (width - 1) / (end - start + 1);
 				var x2 = (i - start + 1) * (width - 1) / (end - start + 1);
 				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = 
-						(char == "A" || char == "a")? "#88FF88": 
-						(char == "C" || char == "c")? "#8888FF": 
-						(char == "G" || char == "g")? "#FF8800": 
-						(char == "T" || char == "t")? "#FF4488": "#AAAAAA";
+						(char1 == "A" || char1 == "a")? "#88FF88":
+						(char1 == "C" || char1 == "c")? "#8888FF":
+						(char1 == "G" || char1 == "g")? "#FF8800":
+						(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if(x2 - x1 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
-					this.imgObj.fillText(char, (x1 + x2) / 2 - 2, y2 - 1);
+					this.imgObj.fillText(char1, (x1 + x2) / 2 - 2, y2 - 1);
 					if(this.option.frameFlg) 
 						this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+				}
+				// amino acid sequence
+				var y3 = y1 + 12 + 10 * (i % 3);
+				var y4 = y3 + 8;
+				var y5 = y3 + 30
+				var y6 = y4 + 30;
+				var x3 = x1 - (width - 1) / (end - start + 1);
+				var x4 = x2 + (width - 1) / (end - start + 1);
+				var genetic_code = {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "STOP", UAG: "STOP",
+					UGU: "Cys", UGC: "Cys", UGA: "STOP", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				};
+				var amino_color = {
+					"Ala": "#FFFFFF",
+					"Arg": "#FFFFFF",
+					"Asn": "#FFFFFF",
+					"Asp": "#FFFFFF",
+					"Cys": "#FFFFFF",
+					"Gln": "#FFFFFF",
+					"Glu": "#FFFFFF",
+					"Gly": "#FFFFFF",
+					"His": "#FFFFFF",
+					"Ile": "#FFFFFF",
+					"Leu": "#FFFFFF",
+					"Lys": "#FFFFFF",
+					"Met": "#FFFFFF",
+					"Phe": "#FFFFFF",
+					"Pro": "#FFFFFF",
+					"Ser": "#FFFFFF",
+					"Thr": "#FFFFFF",
+					"Trp": "#FFFFFF",
+					"Tyr": "#FFFFFF",
+					"Val": "#FFFFFF",
+					"STOP": "#AAAAAA",
+				};
+				var codon = "";
+				codon += char0.toUpperCase() == "T" ? "U" : char0.toUpperCase();
+				codon += char1.toUpperCase() == "T" ? "U" : char1.toUpperCase();
+				codon += char2.toUpperCase() == "T" ? "U" : char2.toUpperCase();
+				var codon_rev = "";
+				codon_rev += rev_comp(char2).toUpperCase() == "T" ? "U" : rev_comp(char2).toUpperCase();
+				codon_rev += rev_comp(char1).toUpperCase() == "T" ? "U" : rev_comp(char1).toUpperCase();
+				codon_rev += rev_comp(char0).toUpperCase() == "T" ? "U" : rev_comp(char0).toUpperCase();
+				var amino = genetic_code[codon];
+				var amino_rev = genetic_code[codon_rev];
+				if(this.option.inColorFlg) {
+					this.imgObj.fillStyle = amino_color[amino];
+					/*
+						(amino == "Ala")? "#FFFFFF":
+						(amino == "Arg")? "#FFFFFF":
+						(amino == "Asn")? "#FFFFFF":
+						(amino == "Asp")? "#FFFFFF":
+						(amino == "Cys")? "#FFFFFF":
+						(amino == "Gln")? "#FFFFFF":
+						(amino == "Glu")? "#FFFFFF":
+						(amino == "Gly")? "#FFFFFF":
+						(amino == "His")? "#FFFFFF":
+						(amino == "Ile")? "#FFFFFF":
+						(amino == "Leu")? "#FFFFFF":
+						(amino == "Lys")? "#FFFFFF":
+						(amino == "Met")? "#FFFFFF":
+						(amino == "Phe")? "#FFFFFF":
+						(amino == "Pro")? "#FFFFFF":
+						(amino == "Ser")? "#FFFFFF":
+						(amino == "Thr")? "#FFFFFF":
+						(amino == "Trp")? "#FFFFFF":
+						(amino == "Tyr")? "#FFFFFF":
+						(amino == "Val")? "#FFFFFF":
+						(amino == "STOP")? "#AAAAAA":
+						"#FF0000";*/
+					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+					this.imgObj.fillStyle = amino_color[amino_rev];
+					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+				}
+				if(x4 - x3 > this.charPx * 3) {
+					this.imgObj.fillStyle = "#000000";
+					this.imgObj.fillText(amino, (x3 + x4) / 2 + 2 - this.charPx, y4);
+					this.imgObj.fillText(amino_rev, (x3 + x4) / 2 + 2 - this.charPx, y6);
+					if(this.option.frameFlg) {
+						this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+						this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+					}
 				}
 			} else {
 				statusFor[bin] = 1;
