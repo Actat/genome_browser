@@ -729,8 +729,8 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					var genetic_code = {
 						UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
 						UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser>",
-						UAU: "Tyr", UAC: "Tyr", UAA: "STOP", UAG: "STOP",
-						UGU: "Cys", UGC: "Cys", UGA: "STOP", UGG: "Trp",
+						UAU: "Tyr", UAC: "Tyr", UAA: "Stop", UAG: "Stop",
+						UGU: "Cys", UGC: "Cys", UGA: "Stop", UGG: "Trp",
 						CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
 						CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 						CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
@@ -765,10 +765,36 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						"Trp": "#FFF100",
 						"Tyr": "#77D9A9",
 						"Val": "#FFF100",
-						"STOP": "#C8C8CB",
+						"Stop": "#000000",
 						"Ser>": "#BFE4FF",
 						"Met>": "#BFE4FF",
 						"Val>": "#BFE4FF",
+					};
+					var amino_code = {
+						"Ala": "A",
+						"Arg": "R",
+						"Asn": "N",
+						"Asp": "D",
+						"Cys": "C",
+						"Gln": "Q",
+						"Glu": "E",
+						"Gly": "G",
+						"His": "H",
+						"Ile": "I",
+						"Leu": "L",
+						"Lys": "K",
+						"Met": "M",
+						"Phe": "F",
+						"Pro": "P",
+						"Ser": "S",
+						"Thr": "T",
+						"Trp": "W",
+						"Tyr": "Y",
+						"Val": "V",
+						"Stop": "",
+						"Ser>": ">",
+						"Met>": ">",
+						"Val>": ">",
 					};
 					var codon = "";
 					codon += char0.toUpperCase() == "T" ? "U" : char0.toUpperCase();
@@ -786,10 +812,17 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						this.imgObj.fillStyle = amino_color[amino_rev];
 						this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 					}
-					if(x4 - x3 > this.charPx * 3) {
-						this.imgObj.fillStyle = "#000000";
-						this.imgObj.fillText(amino, (x3 + x4) / 2 + 2 - this.charPx, y4);
-						this.imgObj.fillText(amino_rev, (x3 + x4) / 2 + 2 - this.charPx, y6);
+					if(x4 - x3 > this.charPx) {
+						this.imgObj.fillStyle = amino == "Stop" ? "#FFFFFF" : "#000000";
+						this.imgObj.fillText(
+							x4 - x3 > this.charPx * 3 ? amino : amino_code[amino],
+							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
+							y4);
+						this.imgObj.fillStyle = amino_rev == "Stop" ? "#FFFFFF" : "#000000";
+						this.imgObj.fillText(
+							x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
+							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
+							y6);
 						if(this.option.frameFlg) {
 							this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 							this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
