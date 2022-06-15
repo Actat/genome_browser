@@ -700,7 +700,7 @@ class Fasta {
 		};
 
 		try{
-				callback(func);
+			callback(func);
 		} catch(e) {
 			reject(e);
 		}
