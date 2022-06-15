@@ -691,8 +691,16 @@ class Fasta {
 	}
 
 	readWaitReader(chr, start, end, callback, reject, option) {
+		let m = this;
+		let func = function* () {
+			m.loadSequence_(chr, start, end).then((seq)=>{
+				let resData = [seq];
+				return resData;
+			});
+		};
+
 		try{
-			this.loadSequence_(chr, start, end).then((seq)=>{callback(seq)});
+				callback(func);
 		} catch(e) {
 			reject(e);
 		}
