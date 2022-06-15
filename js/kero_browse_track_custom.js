@@ -635,6 +635,109 @@ WgFasta.prototype.accessObj = function(chr, binStart, binEnd, powP, accDefault) 
 		throw new Error("data not found.");
 	});
 };
+
+var WgFastaAmino = function(fa, fai, option) {
+	this.imgObj, this.ojson;
+	
+	this.option = (option !== undefined)? option: {};
+	this.option.frameFlg = 
+		(this.option.frameFlg === undefined)? true: this.option.frameFlg;
+	this.option.inColorFlg = 
+		(this.option.inColorFlg === undefined)? true: this.option.inColorFlg;
+	this.option.buttonOnOffFlg = 
+		(this.option.buttonOnOffFlg === undefined)? false: option.buttonOnOffFlg;
+	
+	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
+	this.height = 12;
+	this.y;
+	
+	this.fasta = new Fasta(fa, fai);
+};
+WgFastaAmino.prototype = new WgRoot();
+WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
+	//描写状況:存在しないデータのbin情報を入れる
+	var status = [];
+	
+	var statusFor = {};
+	//1px未満になったら表示しない
+	if(end - start + 1 < width) {
+		var reg = 1 * POW_REG;
+		var y1 = y;
+		var y2 = y1 + 10;
+		this.imgObj.font = this.charPx + "px 'Helvetica'";
+		for(var i = parseInt(start); i <= parseInt(end + 1); i ++) {
+			var bin = Math.floor((i - 1) / reg);
+			//以下はもっと効率よくできるかも
+			if(this.ojson["0"] && this.ojson["0"][chr + "|" + bin] && this.ojson["0"][chr + "|" + bin]["fasta"]) {
+				var char = this.ojson["0"][chr + "|" + bin]["fasta"].charAt(i - 1 - bin * reg);
+				if(strand == "-") {
+					var tmp = char;
+					if(char == "A") tmp = "T"; if(char == "a") tmp = "t";
+					if(char == "C") tmp = "G"; if(char == "c") tmp = "g";
+					if(char == "G") tmp = "C"; if(char == "g") tmp = "c";
+					if(char == "T") tmp = "A"; if(char == "t") tmp = "a";
+					char = tmp;
+				}
+				var x1 = (i - start) * (width - 1) / (end - start + 1);
+				var x2 = (i - start + 1) * (width - 1) / (end - start + 1);
+				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
+				if(this.option.inColorFlg) {
+					this.imgObj.fillStyle = 
+						(char == "A" || char == "a")? "#88FF88": 
+						(char == "C" || char == "c")? "#8888FF": 
+						(char == "G" || char == "g")? "#FF8800": 
+						(char == "T" || char == "t")? "#FF4488": "#AAAAAA";
+					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+				}
+				if(x2 - x1 > this.charPx) {
+					this.imgObj.fillStyle = "#000000";
+					this.imgObj.fillText(char, (x1 + x2) / 2 - 2, y2 - 1);
+					if(this.option.frameFlg) 
+						this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+				}
+			} else {
+				statusFor[bin] = 1;
+			}
+		}
+	}
+	for(var bin in statusFor) if(bin >= 0) status.push(bin);
+	
+	return status;
+};
+WgFastaAmino.prototype.getMenuPopup = function() {
+	var htmlStr = "";
+	return htmlStr;
+};
+WgFastaAmino.prototype.getName = function() {
+	return "fastaamino";
+};
+WgFastaAmino.prototype.getItemDispName = function() {
+	return "FastaAmino";
+};
+WgFastaAmino.prototype.getButtonInfo = function() {
+	var buttonColor = (this.option.buttonColor === undefined)? 
+		{"color": ["eeeeee", "ffcccc"], "onOff": this.option.buttonOnOffFlg}: 
+		{"color": this.option.buttonColor, "onOff": this.option.buttonOnOffFlg};
+	
+	return buttonColor;
+};
+WgFastaAmino.prototype.accessObj = function(chr, binStart, binEnd, powP, accDefault) {
+	var m = this;
+	var bpPerPixel = Math.pow(10, powP);
+	
+	var bpStart = binStart * bpPerPixel * POW_REG + 1;
+	var bpEnd = (parseInt(binStart) + 1) * bpPerPixel * POW_REG;
+	
+	this.fasta.readWaitReader(chr, bpStart, bpEnd, function(seq) {
+		var data = {};
+		data[m.getName()] = seq;
+		accDefault.success(data);
+		accDefault.complete();
+	}, function(err) {
+		throw new Error("data not found.");
+	});
+};
+
 class Fasta {
 	constructor(fa, fai, cache_size = 0) {
 		// fa and fai are FileHandler

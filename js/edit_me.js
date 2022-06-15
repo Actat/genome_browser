@@ -6,6 +6,7 @@ $(function() {
 	//var orefseq = new WgRefseqF("http://kero.hgc.jp/data/hg38/genes.sorted.bb");
 	var oseq = new WgSeqF("test_data/data.dat");
 	var fasta = new WgFasta("test_data/hg38_chr22_cut.fa", "test_data/hg38_chr22_cut.fa.fai");
+	var fastaamino = new WgFastaAmino("test_data/hg38_chr22_cut.fa", "test_data/hg38_chr22_cut.fa.fai");
 	var orefseq = new WgRefseqF("test_data/genes.sorted.bb", "reference_gene", "Reference gene");
 	var obigwig = new WgBigWig2("obigwig", "#5555ff", "only chr22 ENCODE demo data", "test_data/ENCFF437TPA_chr22_cut.sorted.bw");
 	
@@ -53,13 +54,14 @@ $(function() {
 		"<hr /><div>Category buttons</div>", 
 		"<div><input type=\"button\" id=\"show_item\" value=\"Show public data\" name=\"Sequence|Reference gene\" /></div>",
 		"<hr /><div>Public data</div>", 
-		fasta, oseq, orefseq, 
+		fasta, fastaamino, oseq, orefseq, 
 		"<hr /><div>Your data</div>", 
 		obigwig
 	]);
 	
 	//Preparation of default display tracks
 	gvObj.gvFunc.changeTrack("fasta");
+	gvObj.gvFunc.changeTrack("fastaamino");
 	gvObj.gvFunc.changeTrack("sequence");
 	gvObj.gvFunc.changeTrack("reference_gene");
 	
