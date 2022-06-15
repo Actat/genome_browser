@@ -626,11 +626,7 @@ WgFasta.prototype.accessObj = function(chr, binStart, binEnd, powP, accDefault) 
 	var bpStart = binStart * bpPerPixel * POW_REG + 1;
 	var bpEnd = (parseInt(binStart) + 1) * bpPerPixel * POW_REG;
 	
-	this.fasta.readWaitReader(chr, bpStart, bpEnd, function(fetcher) {
-		var seq = "";
-		for(var seqEach of fetcher()) {
-			seq += seqEach;
-		}
+	this.fasta.readWaitReader(chr, bpStart, bpEnd, function(seq) {
 		var data = {};
 		data[m.getName()] = seq;
 		accDefault.success(data);
@@ -691,16 +687,10 @@ class Fasta {
 	}
 
 	readWaitReader(chr, start, end, callback, reject, option) {
-		let m = this;
-		let func = function* () {
-			m.loadSequence_(chr, start, end).then((seq)=>{
-				let resData = [seq];
-				return resData;
-			});
-		};
-
 		try{
-			callback(func);
+			this.loadSequence_(chr, start, end).then((seq)=>{
+				callback(seq);
+			});
 		} catch(e) {
 			reject(e);
 		}
