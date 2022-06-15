@@ -774,29 +774,6 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				var amino_rev = genetic_code[codon_rev];
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = amino_color[amino];
-					/*
-						(amino == "Ala")? "#FFFFFF":
-						(amino == "Arg")? "#FFFFFF":
-						(amino == "Asn")? "#FFFFFF":
-						(amino == "Asp")? "#FFFFFF":
-						(amino == "Cys")? "#FFFFFF":
-						(amino == "Gln")? "#FFFFFF":
-						(amino == "Glu")? "#FFFFFF":
-						(amino == "Gly")? "#FFFFFF":
-						(amino == "His")? "#FFFFFF":
-						(amino == "Ile")? "#FFFFFF":
-						(amino == "Leu")? "#FFFFFF":
-						(amino == "Lys")? "#FFFFFF":
-						(amino == "Met")? "#FFFFFF":
-						(amino == "Phe")? "#FFFFFF":
-						(amino == "Pro")? "#FFFFFF":
-						(amino == "Ser")? "#FFFFFF":
-						(amino == "Thr")? "#FFFFFF":
-						(amino == "Trp")? "#FFFFFF":
-						(amino == "Tyr")? "#FFFFFF":
-						(amino == "Val")? "#FFFFFF":
-						(amino == "STOP")? "#AAAAAA":
-						"#FF0000";*/
 					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 					this.imgObj.fillStyle = amino_color[amino_rev];
 					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
