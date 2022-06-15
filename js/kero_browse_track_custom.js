@@ -684,9 +684,16 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				var char1 = this.ojson["0"][chr + "|" + bin]["fastaamino"].charAt(i - 1 - bin * reg);
 				var char2 = this.ojson["0"][chr + "|" + bin]["fastaamino"].charAt(i - 0 - bin * reg);
 				if (i - 2 - bin * reg < 0) {
-					char0 = this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].charAt(this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].length - 1);
+					char0 = this.ojson["0"][chr + "|" + (bin - 1)]
+						&& this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"]
+						? this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].charAt(
+							this.ojson["0"][chr + "|" + (bin - 1)]["fastaamino"].length - 1)
+						: undefined;
 				} else if (i - 0 - bin * reg >= this.ojson["0"][chr + "|" + bin]["fastaamino"].length) {
-					char2 = this.ojson["0"][chr + "|" + (bin + 1)]["fastaamino"].charAt(0);
+					char2 = this.ojson["0"][chr + "|" + (bin + 1)]
+						&& this.ojson["0"][chr + "|" + (bin + 1)]["fastaamino"]
+						? this.ojson["0"][chr + "|" + (bin + 1)]["fastaamino"].charAt(0)
+						: undefined;
 				}
 				if(strand == "-") {
 					var tmp = char0;
@@ -712,79 +719,81 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				// amino acid sequence
-				var y3 = y1 + 12 + 10 * (i % 3);
-				var y4 = y3 + 8;
-				var y5 = y3 + 30
-				var y6 = y4 + 30;
-				var x3 = x1 - (width - 1) / (end - start + 1);
-				var x4 = x2 + (width - 1) / (end - start + 1);
-				var genetic_code = {
-					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
-					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser>",
-					UAU: "Tyr", UAC: "Tyr", UAA: "STOP", UAG: "STOP",
-					UGU: "Cys", UGC: "Cys", UGA: "STOP", UGG: "Trp",
-					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
-					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
-					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
-					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
-					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
-					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
-					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
-					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val>",
-					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
-					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
-					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
-				};
-				var amino_color = {
-					"Ala": "#FFF100",
-					"Arg": "#BBBFE0",
-					"Asn": "#77D9A9",
-					"Asp": "#F8B7D3",
-					"Cys": "#77D9A9",
-					"Gln": "#77D9A9",
-					"Glu": "#F8B7D3",
-					"Gly": "#FFF100",
-					"His": "#BBBFE0",
-					"Ile": "#FFF100",
-					"Leu": "#FFF100",
-					"Lys": "#BBBFE0",
-					"Met": "#FFF100",
-					"Phe": "#FFF100",
-					"Pro": "#FFF100",
-					"Ser": "#77D9A9",
-					"Thr": "#77D9A9",
-					"Trp": "#FFF100",
-					"Tyr": "#77D9A9",
-					"Val": "#FFF100",
-					"STOP": "#C8C8CB",
-					"Ser>": "#BFE4FF",
-					"Met>": "#BFE4FF",
-					"Val>": "#BFE4FF",
-				};
-				var codon = "";
-				codon += char0.toUpperCase() == "T" ? "U" : char0.toUpperCase();
-				codon += char1.toUpperCase() == "T" ? "U" : char1.toUpperCase();
-				codon += char2.toUpperCase() == "T" ? "U" : char2.toUpperCase();
-				var codon_rev = "";
-				codon_rev += rev_comp(char2).toUpperCase() == "T" ? "U" : rev_comp(char2).toUpperCase();
-				codon_rev += rev_comp(char1).toUpperCase() == "T" ? "U" : rev_comp(char1).toUpperCase();
-				codon_rev += rev_comp(char0).toUpperCase() == "T" ? "U" : rev_comp(char0).toUpperCase();
-				var amino = genetic_code[codon];
-				var amino_rev = genetic_code[codon_rev];
-				if(this.option.inColorFlg) {
-					this.imgObj.fillStyle = amino_color[amino];
-					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
-					this.imgObj.fillStyle = amino_color[amino_rev];
-					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
-				}
-				if(x4 - x3 > this.charPx * 3) {
-					this.imgObj.fillStyle = "#000000";
-					this.imgObj.fillText(amino, (x3 + x4) / 2 + 2 - this.charPx, y4);
-					this.imgObj.fillText(amino_rev, (x3 + x4) / 2 + 2 - this.charPx, y6);
-					if(this.option.frameFlg) {
-						this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
-						this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+				if (char0 && char1 && char2) {
+					var y3 = y1 + 12 + 10 * (i % 3);
+					var y4 = y3 + 8;
+					var y5 = y3 + 30
+					var y6 = y4 + 30;
+					var x3 = x1 - (width - 1) / (end - start + 1);
+					var x4 = x2 + (width - 1) / (end - start + 1);
+					var genetic_code = {
+						UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+						UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser>",
+						UAU: "Tyr", UAC: "Tyr", UAA: "STOP", UAG: "STOP",
+						UGU: "Cys", UGC: "Cys", UGA: "STOP", UGG: "Trp",
+						CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+						CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+						CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+						CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+						AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
+						ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+						AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+						AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+						GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val>",
+						GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+						GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+						GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+					};
+					var amino_color = {
+						"Ala": "#FFF100",
+						"Arg": "#BBBFE0",
+						"Asn": "#77D9A9",
+						"Asp": "#F8B7D3",
+						"Cys": "#77D9A9",
+						"Gln": "#77D9A9",
+						"Glu": "#F8B7D3",
+						"Gly": "#FFF100",
+						"His": "#BBBFE0",
+						"Ile": "#FFF100",
+						"Leu": "#FFF100",
+						"Lys": "#BBBFE0",
+						"Met": "#FFF100",
+						"Phe": "#FFF100",
+						"Pro": "#FFF100",
+						"Ser": "#77D9A9",
+						"Thr": "#77D9A9",
+						"Trp": "#FFF100",
+						"Tyr": "#77D9A9",
+						"Val": "#FFF100",
+						"STOP": "#C8C8CB",
+						"Ser>": "#BFE4FF",
+						"Met>": "#BFE4FF",
+						"Val>": "#BFE4FF",
+					};
+					var codon = "";
+					codon += char0.toUpperCase() == "T" ? "U" : char0.toUpperCase();
+					codon += char1.toUpperCase() == "T" ? "U" : char1.toUpperCase();
+					codon += char2.toUpperCase() == "T" ? "U" : char2.toUpperCase();
+					var codon_rev = "";
+					codon_rev += rev_comp(char2).toUpperCase() == "T" ? "U" : rev_comp(char2).toUpperCase();
+					codon_rev += rev_comp(char1).toUpperCase() == "T" ? "U" : rev_comp(char1).toUpperCase();
+					codon_rev += rev_comp(char0).toUpperCase() == "T" ? "U" : rev_comp(char0).toUpperCase();
+					var amino = genetic_code[codon];
+					var amino_rev = genetic_code[codon_rev];
+					if(this.option.inColorFlg) {
+						this.imgObj.fillStyle = amino_color[amino];
+						this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+						this.imgObj.fillStyle = amino_color[amino_rev];
+						this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+					}
+					if(x4 - x3 > this.charPx * 3) {
+						this.imgObj.fillStyle = "#000000";
+						this.imgObj.fillText(amino, (x3 + x4) / 2 + 2 - this.charPx, y4);
+						this.imgObj.fillText(amino_rev, (x3 + x4) / 2 + 2 - this.charPx, y6);
+						if(this.option.frameFlg) {
+							this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+							this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+						}
 					}
 				}
 			} else {
