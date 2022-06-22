@@ -757,6 +757,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					this.imgObj.fillText(char1, (x1 + x2) / 2 - 2, y2 - 1);
 				}
 				if(x2 - x1 > this.charPx && this.option.frameFlg) {
+					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if (this.showType == "collapsed" || !(char0 && char1 && char2)) {
@@ -789,6 +790,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 							y4);
 				}
 				if(x4 - x3 > this.charPx && this.option.frameFlg) {
+					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 				}
 				if (this.showType == "squished") {
@@ -808,6 +810,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 71);
 				}
 				if(x2 - x1 > this.charPx && this.option.frameFlg) {
+					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x1, y1 + 72, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if(this.option.inColorFlg) {
@@ -825,6 +828,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 							y6);
 				}
 				if(x4 - x3 > this.charPx && this.option.frameFlg) {
+					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 				}
 			} else {
