@@ -581,10 +581,10 @@ WgFasta.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = 
-						(char == "A" || char == "a")? "#88FF88": 
-						(char == "C" || char == "c")? "#8888FF": 
-						(char == "G" || char == "g")? "#FF8800": 
-						(char == "T" || char == "t")? "#FF4488": "#AAAAAA";
+						(char == "A" || char == "a")? "#03AF7A":
+						(char == "C" || char == "c")? "#4DC4FF":
+						(char == "G" || char == "g")? "#FFF100":
+						(char == "T" || char == "t")? "#FF4B00": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if(x2 - x1 > this.charPx) {
@@ -706,10 +706,10 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = 
-						(char1 == "A" || char1 == "a")? "#88FF88":
-						(char1 == "C" || char1 == "c")? "#8888FF":
-						(char1 == "G" || char1 == "g")? "#FF8800":
-						(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
+						(char1 == "A" || char1 == "a")? "#03AF7A":
+						(char1 == "C" || char1 == "c")? "#4DC4FF":
+						(char1 == "G" || char1 == "g")? "#FFF100":
+						(char1 == "T" || char1 == "t")? "#FF4B00": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 					this.imgObj.fillStyle = 
 						(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#03AF7A":
