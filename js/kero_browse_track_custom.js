@@ -650,7 +650,8 @@ var WgFastaAmino = function(fa, fai, option) {
 	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
 	this.height = 82;
 	this.y;
-	
+	this.showType = (this.option.showType)? this.option.showType: "expanded";
+
 	this.fasta = new Fasta(fa, fai);
 };
 WgFastaAmino.prototype = new WgRoot();
@@ -711,21 +712,30 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						(char1 == "G" || char1 == "g")? "#FF8800":
 						(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
-					this.imgObj.fillStyle = 
-						(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#88FF88":
-						(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#8888FF":
-						(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FF8800":
-						(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4488": "#AAAAAA";
-					this.imgObj.fillRect(x1, y1 + 72, x2 - x1 + 1, 10);
+					if (this.showType == "expanded") {
+						this.imgObj.fillStyle = 
+							(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#88FF88":
+							(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#8888FF":
+							(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FF8800":
+							(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4488": "#AAAAAA";
+						this.imgObj.fillRect(x1, y1 + 72, x2 - x1 + 1, 10);
+					}
 				}
 				if(x2 - x1 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(char1, (x1 + x2) / 2 - 2, y2 - 1);
-					this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 71);
+					if (this.showType == "expanded") {
+						this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 71);
+					}
 					if(this.option.frameFlg) {
 						this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
-						this.imgObj.strokeRect(x1, y1 + 72, x2 - x1 + 1, y2 - y1 + 1);
+						if (this.showType == "expanded") {
+							this.imgObj.strokeRect(x1, y1 + 72, x2 - x1 + 1, y2 - y1 + 1);
+						}
 					}
+				}
+				if (this.showType == "collapsed") {
+					continue;
 				}
 				// amino acid sequence
 				if (char0 && char1 && char2) {
@@ -792,11 +802,13 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 							amino == "Stop" ? "#FF4488" :
 							i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
 						this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
-						this.imgObj.fillStyle =
-							amino_rev == "Met" ? "#88FF88" :
-							amino_rev == "Stop" ? "#FF4488" :
-							i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
-						this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+						if (this.showType == "expanded") {
+							this.imgObj.fillStyle =
+								amino_rev == "Met" ? "#88FF88" :
+								amino_rev == "Stop" ? "#FF4488" :
+								i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
+							this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+						}
 					}
 					if(x4 - x3 > this.charPx) {
 						this.imgObj.fillStyle = "#000000";
@@ -804,14 +816,18 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 							x4 - x3 > this.charPx * 3 ? amino : amino_code[amino],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
 							y4);
-						this.imgObj.fillStyle = "#000000";
-						this.imgObj.fillText(
-							x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
-							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
-							y6);
+						if (this.showType == "expanded"){
+							this.imgObj.fillStyle = "#000000";
+							this.imgObj.fillText(
+								x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
+								(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
+								y6);
+						}
 						if(this.option.frameFlg) {
 							this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
-							this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+							if (this.showType == "expanded") {
+								this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+							}
 						}
 					}
 				}
@@ -824,8 +840,34 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 	
 	return status;
 };
+WgFastaAmino.prototype.setHeight = function(dt, width, chr, start, end) {
+	if (this.showType == "collapsed") {
+		this.height = 12;
+	} else if (this.showType == "squished") {
+		this.height = 42;
+	} else {
+		this.height = 82;
+	}
+};
 WgFastaAmino.prototype.getMenuPopup = function() {
+	var checked = new Array("", "", "");
+	if(this.showType == "collapsed") checked[0] = "checked=\"checked\"";
+	if(this.showType == "expanded") checked[1] = "checked=\"checked\"";
+	if(this.showType == "squished") checked[2] = "checked=\"checked\"";
 	var htmlStr = "";
+	htmlStr += "<div style=\"border:1px solid\"><table border=\"0\" width=\"100%\"><tr><th align=\"left\" bgcolor=\"#aaaaaa\" colspan=\"2\">Setting:</th></tr><tr>";
+	htmlStr += "<td bgcolor=\"#aaaaaa\">&nbsp;</td><td><form>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"collapsed\" id=\"collapsed\" ";
+	htmlStr += checked[0] + " /><label for=\"collapsed\">Collapsed</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"expanded\" id=\"expanded\" ";
+	htmlStr += checked[1] + " /><label for=\"expanded\">Expanded</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"squished\" id=\"squished\" ";
+	htmlStr += checked[2] + " /><label for=\"squished\">Squished</label></div>";
+	htmlStr += "</form>";
+	// htmlStr += "<hr /><a href=\"#\" class=\"det\">Detail...</a>";
+	htmlStr += "</td></tr></table></div>";
+	// htmlStr += "<hr /><a href=\"#\" class=\"help\">Help</a>";
+	
 	return htmlStr;
 };
 WgFastaAmino.prototype.getName = function() {
