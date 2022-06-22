@@ -648,7 +648,7 @@ var WgFastaAmino = function(fa, fai, option) {
 		(this.option.buttonOnOffFlg === undefined)? false: option.buttonOnOffFlg;
 	
 	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
-	this.height = 72;
+	this.height = 82;
 	this.y;
 	
 	this.fasta = new Fasta(fa, fai);
@@ -711,12 +711,21 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						(char1 == "G" || char1 == "g")? "#FF8800":
 						(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+					this.imgObj.fillStyle = 
+						(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#03AF7A":
+						(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#4DC4FF":
+						(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FFF100":
+						(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4B00": "#AAAAAA";
+					this.imgObj.fillRect(x1, y1 + 72, x2 - x1 + 1, 10);
 				}
 				if(x2 - x1 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(char1, (x1 + x2) / 2 - 2, y2 - 1);
-					if(this.option.frameFlg) 
+					this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 71);
+					if(this.option.frameFlg) {
 						this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+						this.imgObj.strokeRect(x1, y1 + 72, x2 - x1 + 1, y2 - y1 + 1);
+					}
 				}
 				// amino acid sequence
 				if (char0 && char1 && char2) {
