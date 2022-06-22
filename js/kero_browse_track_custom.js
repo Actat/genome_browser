@@ -650,7 +650,7 @@ var WgFastaAmino = function(fa, fai, option) {
 	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
 	this.height = 82;
 	this.y;
-	this.showType = (this.option.showType)? this.option.showType: "expanded";
+	this.showType = (this.option.showType)? this.option.showType: "squished";
 
 	this.fasta = new Fasta(fa, fai);
 };
@@ -858,11 +858,11 @@ WgFastaAmino.prototype.getMenuPopup = function() {
 	htmlStr += "<div style=\"border:1px solid\"><table border=\"0\" width=\"100%\"><tr><th align=\"left\" bgcolor=\"#aaaaaa\" colspan=\"2\">Setting:</th></tr><tr>";
 	htmlStr += "<td bgcolor=\"#aaaaaa\">&nbsp;</td><td><form>";
 	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"collapsed\" id=\"collapsed\" ";
-	htmlStr += checked[0] + " /><label for=\"collapsed\">Collapsed</label></div>";
+	htmlStr += checked[0] + " /><label for=\"collapsed\">Only Sequence</label></div>";
 	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"expanded\" id=\"expanded\" ";
-	htmlStr += checked[1] + " /><label for=\"expanded\">Expanded</label></div>";
+	htmlStr += checked[1] + " /><label for=\"expanded\">With reverse strand</label></div>";
 	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"squished\" id=\"squished\" ";
-	htmlStr += checked[2] + " /><label for=\"squished\">Squished</label></div>";
+	htmlStr += checked[2] + " /><label for=\"squished\">Default</label></div>";
 	htmlStr += "</form>";
 	// htmlStr += "<hr /><a href=\"#\" class=\"det\">Detail...</a>";
 	htmlStr += "</td></tr></table></div>";
