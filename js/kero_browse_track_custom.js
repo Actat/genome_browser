@@ -774,7 +774,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						"Trp": "W",
 						"Tyr": "Y",
 						"Val": "V",
-						"Stop": "",
+						"Stop": "*",
 					};
 					var codon = "";
 					codon += char0.toUpperCase() == "T" ? "U" : char0.toUpperCase();
