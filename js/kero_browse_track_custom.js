@@ -744,29 +744,6 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
 						GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
 					};
-					var amino_color = {
-						"Ala": "#FFF100",
-						"Arg": "#BBBFE0",
-						"Asn": "#77D9A9",
-						"Asp": "#F8B7D3",
-						"Cys": "#77D9A9",
-						"Gln": "#77D9A9",
-						"Glu": "#F8B7D3",
-						"Gly": "#FFF100",
-						"His": "#BBBFE0",
-						"Ile": "#FFF100",
-						"Leu": "#FFF100",
-						"Lys": "#BBBFE0",
-						"Met": "#FFF100",
-						"Phe": "#FFF100",
-						"Pro": "#FFF100",
-						"Ser": "#77D9A9",
-						"Thr": "#77D9A9",
-						"Trp": "#FFF100",
-						"Tyr": "#77D9A9",
-						"Val": "#FFF100",
-						"Stop": "#000000",
-					};
 					var amino_code = {
 						"Ala": "A",
 						"Arg": "R",
@@ -801,18 +778,24 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					var amino = genetic_code[codon];
 					var amino_rev = genetic_code[codon_rev];
 					if(this.option.inColorFlg) {
-						this.imgObj.fillStyle = amino_color[amino];
+						this.imgObj.fillStyle =
+							amino == "Met" ? "#03AF7A" :
+							amino == "Stop" ? "#FF4B00" :
+							i % 6 < 3 ? "#C8C8CB" : "#FFFFFF";
 						this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
-						this.imgObj.fillStyle = amino_color[amino_rev];
+						this.imgObj.fillStyle =
+							amino_rev == "Met" ? "#03AF7A" :
+							amino_rev == "Stop" ? "#FF4B00" :
+							i % 6 < 3 ? "#FFFFFF" : "#C8C8CB";
 						this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 					}
 					if(x4 - x3 > this.charPx) {
-						this.imgObj.fillStyle = amino == "Stop" ? "#FFFFFF" : "#000000";
+						this.imgObj.fillStyle = "#000000";
 						this.imgObj.fillText(
 							x4 - x3 > this.charPx * 3 ? amino : amino_code[amino],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
 							y4);
-						this.imgObj.fillStyle = amino_rev == "Stop" ? "#FFFFFF" : "#000000";
+						this.imgObj.fillStyle = "#000000";
 						this.imgObj.fillText(
 							x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
