@@ -581,10 +581,10 @@ WgFasta.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = 
-						(char == "A" || char == "a")? "#03AF7A":
-						(char == "C" || char == "c")? "#4DC4FF":
-						(char == "G" || char == "g")? "#FFF100":
-						(char == "T" || char == "t")? "#FF4B00": "#AAAAAA";
+						(char == "A" || char == "a")? "#88FF88":
+						(char == "C" || char == "c")? "#8888FF":
+						(char == "G" || char == "g")? "#FF8800":
+						(char == "T" || char == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if(x2 - x1 > this.charPx) {
@@ -706,16 +706,16 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(strand == "-") {var tmp = width - 1 - x1; x1 = width - 1 - x2; x2 = tmp;}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle = 
-						(char1 == "A" || char1 == "a")? "#03AF7A":
-						(char1 == "C" || char1 == "c")? "#4DC4FF":
-						(char1 == "G" || char1 == "g")? "#FFF100":
-						(char1 == "T" || char1 == "t")? "#FF4B00": "#AAAAAA";
+					(char1 == "A" || char1 == "a")? "#88FF88":
+					(char1 == "C" || char1 == "c")? "#8888FF":
+					(char1 == "G" || char1 == "g")? "#FF8800":
+					(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 					this.imgObj.fillStyle = 
-						(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#03AF7A":
-						(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#4DC4FF":
-						(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FFF100":
-						(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4B00": "#AAAAAA";
+						(rev_comp(char1) == "A" || rev_comp(char1) == "a")? "#88FF88":
+						(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#8888FF":
+						(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FF8800":
+						(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4488": "#AAAAAA";
 					this.imgObj.fillRect(x1, y1 + 72, x2 - x1 + 1, 10);
 				}
 				if(x2 - x1 > this.charPx) {
@@ -788,14 +788,14 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					var amino_rev = genetic_code[codon_rev];
 					if(this.option.inColorFlg) {
 						this.imgObj.fillStyle =
-							amino == "Met" ? "#03AF7A" :
-							amino == "Stop" ? "#FF4B00" :
-							i % 6 < 3 ? "#C8C8CB" : "#FFFFFF";
+							amino == "Met" ? "#88FF88" :
+							amino == "Stop" ? "#FF4488" :
+							i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
 						this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 						this.imgObj.fillStyle =
-							amino_rev == "Met" ? "#03AF7A" :
-							amino_rev == "Stop" ? "#FF4B00" :
-							i % 6 < 3 ? "#FFFFFF" : "#C8C8CB";
+							amino_rev == "Met" ? "#88FF88" :
+							amino_rev == "Stop" ? "#FF4488" :
+							i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
 						this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 					}
 					if(x4 - x3 > this.charPx) {
