@@ -651,6 +651,7 @@ var WgFastaAmino = function(fa, fai, option) {
 	this.height = 82;
 	this.y;
 	this.showType = (this.option.showType)? this.option.showType: "squished";
+	this.translationTable = (this.option.translationTable) ? this.option.translationTable: "Standard";
 
 	this.fasta = new Fasta(fa, fai);
 };
@@ -680,28 +681,48 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				return changeBase[char];
 			}
 			var genetic_code = {
-				UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
-				UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
-				UAU: "Tyr", UAC: "Tyr", UAA: "Stop", UAG: "Stop",
-				UGU: "Cys", UGC: "Cys", UGA: "Stop", UGG: "Trp",
-				CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
-				CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
-				CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
-				CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-				AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
-				ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
-				AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
-				AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
-				GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
-				GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
-				GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
-				GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				"Standard": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"Vertebrate Mitochondrial": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ter", AGG: "Ter",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
 			};
 			var amino_code = {
 				"Ala": "A", "Arg": "R", "Asn": "N", "Asp": "D", "Cys": "C", "Gln": "Q",
 				"Glu": "E", "Gly": "G", "His": "H", "Ile": "I", "Leu": "L", "Lys": "K",
 				"Met": "M", "Phe": "F", "Pro": "P", "Ser": "S", "Thr": "T", "Trp": "W",
-				"Tyr": "Y", "Val": "V", "Stop": "*",
+				"Tyr": "Y", "Val": "V", "Ter": "*",
 			};
 
 			if(this.ojson["0"]
@@ -772,13 +793,13 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				codon_rev += rev_comp(char2).toUpperCase() == "T" ? "U" : rev_comp(char2).toUpperCase();
 				codon_rev += rev_comp(char1).toUpperCase() == "T" ? "U" : rev_comp(char1).toUpperCase();
 				codon_rev += rev_comp(char0).toUpperCase() == "T" ? "U" : rev_comp(char0).toUpperCase();
-				var amino = genetic_code[codon];
-				var amino_rev = genetic_code[codon_rev];
+				var amino = genetic_code[this.translationTable][codon];
+				var amino_rev = genetic_code[this.translationTable][codon_rev];
 
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
 						amino == "Met" ? "#88FF88" :
-						amino == "Stop" ? "#FF4488" :
+						amino == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
 					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 				}
@@ -816,7 +837,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
 						amino_rev == "Met" ? "#88FF88" :
-						amino_rev == "Stop" ? "#FF4488" :
+						amino_rev == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
 					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 				}
@@ -864,11 +885,31 @@ WgFastaAmino.prototype.getMenuPopup = function() {
 	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"squished\" id=\"squished\" ";
 	htmlStr += checked[2] + " /><label for=\"squished\">Default</label></div>";
 	htmlStr += "</form>";
-	// htmlStr += "<hr /><a href=\"#\" class=\"det\">Detail...</a>";
+	htmlStr += "<hr /><a href=\"#\" class=\"det\">Change translation table</a>";
 	htmlStr += "</td></tr></table></div>";
 	// htmlStr += "<hr /><a href=\"#\" class=\"help\">Help</a>";
 	
 	return htmlStr;
+};
+WgFastaAmino.prototype.getMenuDetail = function() {
+	var checked = new Array("", "");
+	if(this.translationTable == "Standard") checked[0] = "checked=\"checked\"";
+	if(this.translationTable == "Vertebrate Mitochondrial") checked[1] = "checked=\"checked\"";
+	var htmlStr = "";
+	htmlStr += "<div>";
+	htmlStr += "<input type=\"radio\" name=\"translationTable\" value=\"Standard\" id=\"Standard\" ";
+	htmlStr += checked[0] + " /><label for=\"Standard\">Standard</label>";
+	htmlStr += "<input type=\"radio\" name=\"translationTable\" value=\"Vertebrate_Mitochondrial\" id=\"Vertebrate_Mitochondrial\" ";
+	htmlStr += checked[1] + " /><label for=\"Vertebrate_Mitochondrial\">Vertebrate Mitochondrial</label>";
+	htmlStr += "</div>";
+	htmlStr += "<div class=\"modal_btn\"><input type=\"button\" id=\"apply_button\" value=\"Apply\" /><input type=\"button\" id=\"cancel_button\" value=\"Cancel\" /></div>";
+	return htmlStr;
+};
+WgFastaAmino.prototype.setViewDetail = function(divId) {
+	this.translationTable =
+		$("div" + divId + " div#modal div.container #Standard")[0].checked ? "Standard" :
+		$("div" + divId + " div#modal div.container #Vertebrate_Mitochondrial")[0].checked ? "Vertebrate Mitochondrial" :
+		"Standard";
 };
 WgFastaAmino.prototype.getName = function() {
 	return "fastaamino";
