@@ -1011,10 +1011,10 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				}
 				var x3 = x1 - (width - 1) / (end - start + 1);
 				var x4 = x2 + (width - 1) / (end - start + 1);
-				var y3 = y1 + 12 + 10 * ((i + 1) % 3);
-				var y4 = y3 + 8;
-				var y5 = y3 + 20 + 10 * (i % 3);
-				var y6 = y5 + 8;
+				var y3 = y1 + 10 + 10 * ((i + 1) % 3);
+				var y4 = y3 + 10;
+				var y5 = y3 + 30;
+				var y6 = y5 + 10;
 
 				// paint sequence
 				if(this.option.inColorFlg) {
@@ -1023,15 +1023,11 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						(char1 == "C" || char1 == "c")? "#8888FF":
 						(char1 == "G" || char1 == "g")? "#FF8800":
 						(char1 == "T" || char1 == "t")? "#FF4488": "#AAAAAA";
-					this.imgObj.fillRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+					this.imgObj.fillRect(x1, y1, x2 - x1, y2 - y1);
 				}
 				if(x2 - x1 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(char1, (x1 + x2) / 2 - 2, y2 - 1);
-				}
-				if(x2 - x1 > this.charPx && this.option.frameFlg) {
-					this.imgObj.strokeStyle = "#000000";
-					this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
 				if (this.showType == "onlyseq" || !(char0 && char1 && char2)) {
 					continue;
@@ -1052,19 +1048,15 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					this.imgObj.fillStyle =
 						amino == "Met" ? "#88FF88" :
 						amino == "Ter" ? "#FF4488" :
-						i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
-					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+						(i + 1) % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
+					this.imgObj.fillRect(x3, y3, x4 - x3, y4 - y3);
 				}
 				if(x4 - x3 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(
 							x4 - x3 > this.charPx * 3 ? amino : amino_code[amino],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
-							y4);
-				}
-				if(x4 - x3 > this.charPx && this.option.frameFlg) {
-					this.imgObj.strokeStyle = "#000000";
-					this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
+							y4 - 1);
 				}
 				if (this.showType == "forward") {
 					continue;
@@ -1076,33 +1068,25 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						(rev_comp(char1) == "C" || rev_comp(char1) == "c")? "#8888FF":
 						(rev_comp(char1) == "G" || rev_comp(char1) == "g")? "#FF8800":
 						(rev_comp(char1) == "T" || rev_comp(char1) == "t")? "#FF4488": "#AAAAAA";
-					this.imgObj.fillRect(x1, y1 + 72, x2 - x1 + 1, 10);
+					this.imgObj.fillRect(x1, y1 + 70, x2 - x1 + 1, 10);
 				}
 				if(x2 - x1 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
-					this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 71);
-				}
-				if(x2 - x1 > this.charPx && this.option.frameFlg) {
-					this.imgObj.strokeStyle = "#000000";
-					this.imgObj.strokeRect(x1, y1 + 72, x2 - x1 + 1, y2 - y1 + 1);
+					this.imgObj.fillText(rev_comp(char1), (x1 + x2) / 2 - 2, y2 + 69);
 				}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
 						amino_rev == "Met" ? "#88FF88" :
 						amino_rev == "Ter" ? "#FF4488" :
-						i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
-					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+						(i + 1) % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
+					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5);
 				}
 				if(x4 - x3 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(
 							x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
-							y6);
-				}
-				if(x4 - x3 > this.charPx && this.option.frameFlg) {
-					this.imgObj.strokeStyle = "#000000";
-					this.imgObj.strokeRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
+							y6 - 1);
 				}
 			} else {
 				statusFor[bin] = 1;
@@ -1115,11 +1099,11 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 };
 WgFastaAmino.prototype.setHeight = function(dt, width, chr, start, end) {
 	if (this.showType == "onlyseq") {
-		this.height = 12;
+		this.height = 10;
 	} else if (this.showType == "forward") {
-		this.height = 42;
+		this.height = 40;
 	} else {
-		this.height = 82;
+		this.height = 80;
 	}
 };
 WgFastaAmino.prototype.getMenuPopup = function() {
