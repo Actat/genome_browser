@@ -651,6 +651,7 @@ var WgFastaAmino = function(fa, fai, option) {
 	this.height = 82;
 	this.y;
 	this.showType = (this.option.showType)? this.option.showType: "forward";
+	this.translationTable = (this.option.translationTable) ? this.option.translationTable: "1";
 
 	this.fasta = new Fasta(fa, fai);
 };
@@ -680,28 +681,300 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				return changeBase[char];
 			}
 			var genetic_code = {
-				UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
-				UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
-				UAU: "Tyr", UAC: "Tyr", UAA: "Stop", UAG: "Stop",
-				UGU: "Cys", UGC: "Cys", UGA: "Stop", UGG: "Trp",
-				CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
-				CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
-				CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
-				CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-				AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
-				ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
-				AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
-				AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
-				GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
-				GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
-				GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
-				GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				"1": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"2": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ter", AGG: "Ter",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"3": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Thr", CUC: "Thr", CUA: "Thr", CUG: "Thr",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"4": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"5": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"6": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Gln", UAG: "Gln",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"9": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"10": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Cys", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"11": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"12": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Ser",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"13": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Gly", AGG: "Gly",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"14": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Tyr", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"16": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Leu",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"21": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Trp", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"22": {
+					UUU: "Phe", UUC: "Phe", UUA: "Leu", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ter", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Leu",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
+				"23": {
+					UUU: "Phe", UUC: "Phe", UUA: "Ter", UUG: "Leu",
+					UCU: "Ser", UCC: "Ser", UCA: "Ser", UCG: "Ser",
+					UAU: "Tyr", UAC: "Tyr", UAA: "Ter", UAG: "Ter",
+					UGU: "Cys", UGC: "Cys", UGA: "Ter", UGG: "Trp",
+					CUU: "Leu", CUC: "Leu", CUA: "Leu", CUG: "Leu",
+					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
+					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
+					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
+					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
+					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
+					GUU: "Val", GUC: "Val", GUA: "Val", GUG: "Val",
+					GCU: "Ala", GCC: "Ala", GCA: "Ala", GCG: "Ala",
+					GAU: "Asp", GAC: "Asp", GAA: "Glu", GAG: "Glu",
+					GGU: "Gly", GGC: "Gly", GGA: "Gly", GGG: "Gly",
+				},
 			};
 			var amino_code = {
 				"Ala": "A", "Arg": "R", "Asn": "N", "Asp": "D", "Cys": "C", "Gln": "Q",
 				"Glu": "E", "Gly": "G", "His": "H", "Ile": "I", "Leu": "L", "Lys": "K",
 				"Met": "M", "Phe": "F", "Pro": "P", "Ser": "S", "Thr": "T", "Trp": "W",
-				"Tyr": "Y", "Val": "V", "Stop": "*",
+				"Tyr": "Y", "Val": "V", "Ter": "*",
 			};
 
 			if(this.ojson["0"]
@@ -772,13 +1045,13 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				codon_rev += rev_comp(char2).toUpperCase() == "T" ? "U" : rev_comp(char2).toUpperCase();
 				codon_rev += rev_comp(char1).toUpperCase() == "T" ? "U" : rev_comp(char1).toUpperCase();
 				codon_rev += rev_comp(char0).toUpperCase() == "T" ? "U" : rev_comp(char0).toUpperCase();
-				var amino = genetic_code[codon];
-				var amino_rev = genetic_code[codon_rev];
+				var amino = genetic_code[this.translationTable][codon];
+				var amino_rev = genetic_code[this.translationTable][codon_rev];
 
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
 						amino == "Met" ? "#88FF88" :
-						amino == "Stop" ? "#FF4488" :
+						amino == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
 					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 				}
@@ -816,7 +1089,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
 						amino_rev == "Met" ? "#88FF88" :
-						amino_rev == "Stop" ? "#FF4488" :
+						amino_rev == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
 					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
 				}
@@ -864,11 +1137,81 @@ WgFastaAmino.prototype.getMenuPopup = function() {
 	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"forward\" id=\"forward\" ";
 	htmlStr += checked[2] + " /><label for=\"forward\">Default</label></div>";
 	htmlStr += "</form>";
-	// htmlStr += "<hr /><a href=\"#\" class=\"det\">Detail...</a>";
+	htmlStr += "<hr /><a href=\"#\" class=\"det\">Change translation table</a>";
 	htmlStr += "</td></tr></table></div>";
 	// htmlStr += "<hr /><a href=\"#\" class=\"help\">Help</a>";
 	
 	return htmlStr;
+};
+WgFastaAmino.prototype.getMenuDetail = function() {
+	var checked = new Array("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+	if(this.translationTable == "1") checked[0] = "checked=\"checked\"";
+	if(this.translationTable == "2") checked[1] = "checked=\"checked\"";
+	if(this.translationTable == "3") checked[2] = "checked=\"checked\"";
+	if(this.translationTable == "4") checked[3] = "checked=\"checked\"";
+	if(this.translationTable == "5") checked[4] = "checked=\"checked\"";
+	if(this.translationTable == "6") checked[5] = "checked=\"checked\"";
+	if(this.translationTable == "9") checked[6] = "checked=\"checked\"";
+	if(this.translationTable == "10") checked[7] = "checked=\"checked\"";
+	if(this.translationTable == "11") checked[8] = "checked=\"checked\"";
+	if(this.translationTable == "12") checked[9] = "checked=\"checked\"";
+	if(this.translationTable == "13") checked[10] = "checked=\"checked\"";
+	if(this.translationTable == "14") checked[11] = "checked=\"checked\"";
+	if(this.translationTable == "16") checked[12] = "checked=\"checked\"";
+	if(this.translationTable == "21") checked[13] = "checked=\"checked\"";
+	if(this.translationTable == "23") checked[14] = "checked=\"checked\"";
+	var htmlStr = "";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"1\" id=\"1\" ";
+	htmlStr += checked[0] + " /><label for=\"1\">Standard</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"2\" id=\"2\" ";
+	htmlStr += checked[1] + " /><label for=\"2\">Vertebrate Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"3\" id=\"3\" ";
+	htmlStr += checked[2] + " /><label for=\"3\">Yeast Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"4\" id=\"4\" ";
+	htmlStr += checked[3] + " /><label for=\"4\">Mold, Protozoan, and Coelenterate Mitochondrial and Mycoplasma/Spiroplasma</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"5\" id=\"5\" ";
+	htmlStr += checked[4] + " /><label for=\"5\">Invertebrate Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"6\" id=\"6\" ";
+	htmlStr += checked[5] + " /><label for=\"6\">Ciliate, Dasycladacean and Hexamita Nuclear</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"9\" id=\"9\" ";
+	htmlStr += checked[6] + " /><label for=\"9\">Echinoderm and Flatworm Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"10\" id=\"10\" ";
+	htmlStr += checked[7] + " /><label for=\"10\">Euplotid Nuclear</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"11\" id=\"11\" ";
+	htmlStr += checked[8] + " /><label for=\"11\">Bacterial, Archaeal and Plant Plastid</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"12\" id=\"12\" ";
+	htmlStr += checked[9] + " /><label for=\"12\">Alternative Yeast Nuclear</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"13\" id=\"13\" ";
+	htmlStr += checked[10] + " /><label for=\"13\">Ascidian Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"14\" id=\"14\" ";
+	htmlStr += checked[11] + " /><label for=\"14\">Alternative Flatworm Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"16\" id=\"16\" ";
+	htmlStr += checked[12] + " /><label for=\"16\">Chlorophycean Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"21\" id=\"21\" ";
+	htmlStr += checked[13] + " /><label for=\"21\">Trematode Mitochondrial</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"23\" id=\"23\" ";
+	htmlStr += checked[14] + " /><label for=\"23\">Thraustochytrium Mitochondrial</label></div>";
+	htmlStr += "<div class=\"modal_btn\"><input type=\"button\" id=\"apply_button\" value=\"Apply\" /><input type=\"button\" id=\"cancel_button\" value=\"Cancel\" /></div>";
+	return htmlStr;
+};
+WgFastaAmino.prototype.setViewDetail = function(divId) {
+	this.translationTable =
+		$("div" + divId + " div#modal div.container #1")[0].checked ? "1" :
+		$("div" + divId + " div#modal div.container #2")[0].checked ? "2" :
+		$("div" + divId + " div#modal div.container #3")[0].checked ? "3" :
+		$("div" + divId + " div#modal div.container #4")[0].checked ? "4" :
+		$("div" + divId + " div#modal div.container #5")[0].checked ? "5" :
+		$("div" + divId + " div#modal div.container #6")[0].checked ? "6" :
+		$("div" + divId + " div#modal div.container #9")[0].checked ? "9" :
+		$("div" + divId + " div#modal div.container #10")[0].checked ? "10" :
+		$("div" + divId + " div#modal div.container #11")[0].checked ? "11" :
+		$("div" + divId + " div#modal div.container #12")[0].checked ? "12" :
+		$("div" + divId + " div#modal div.container #13")[0].checked ? "13" :
+		$("div" + divId + " div#modal div.container #14")[0].checked ? "14" :
+		$("div" + divId + " div#modal div.container #16")[0].checked ? "16" :
+		$("div" + divId + " div#modal div.container #21")[0].checked ? "21" :
+		$("div" + divId + " div#modal div.container #23")[0].checked ? "23" :
+		"1";
 };
 WgFastaAmino.prototype.getName = function() {
 	return "fastaamino";
