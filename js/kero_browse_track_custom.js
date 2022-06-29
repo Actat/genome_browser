@@ -690,7 +690,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -708,7 +708,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					AUU: "Ile>", AUC: "Ile>", AUA: "Met>", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Ter", AGG: "Ter",
@@ -726,7 +726,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -744,7 +744,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -762,7 +762,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
@@ -780,7 +780,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -798,7 +798,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
@@ -816,7 +816,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -834,7 +834,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -852,7 +852,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -870,7 +870,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Gly", AGG: "Gly",
@@ -888,7 +888,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
@@ -906,7 +906,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -924,7 +924,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Met", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Asn", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Ser", AGG: "Ser",
@@ -942,7 +942,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -960,7 +960,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					CCU: "Pro", CCC: "Pro", CCA: "Pro", CCG: "Pro",
 					CAU: "His", CAC: "His", CAA: "Gln", CAG: "Gln",
 					CGU: "Arg", CGC: "Arg", CGA: "Arg", CGG: "Arg",
-					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met",
+					AUU: "Ile", AUC: "Ile", AUA: "Ile", AUG: "Met>",
 					ACU: "Thr", ACC: "Thr", ACA: "Thr", ACG: "Thr",
 					AAU: "Asn", AAC: "Asn", AAA: "Lys", AAG: "Lys",
 					AGU: "Ser", AGC: "Ser", AGA: "Arg", AGG: "Arg",
@@ -1050,7 +1050,8 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
-						amino == "Met" ? "#88FF88" :
+						codon == "AUG" ? "#88FF88" :
+						amino.slice(-1) == ">" ? "#FFFF00" :
 						amino == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
 					this.imgObj.fillRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
@@ -1058,7 +1059,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(x4 - x3 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(
-							x4 - x3 > this.charPx * 3 ? amino : amino_code[amino],
+							x4 - x3 > this.charPx * 3 ? amino.slice(0, 3) : amino_code[amino.slice(0, 3)],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
 							y4);
 				}
@@ -1088,7 +1089,8 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				}
 				if(this.option.inColorFlg) {
 					this.imgObj.fillStyle =
-						amino_rev == "Met" ? "#88FF88" :
+						codon_rev == "AUG" ? "#88FF88" :
+						amino_rev.slice(-1) == ">" ? "#FF8800" :
 						amino_rev == "Ter" ? "#FF4488" :
 						i % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
 					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5 + 1);
@@ -1096,7 +1098,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				if(x4 - x3 > this.charPx) {
 					this.imgObj.fillStyle = "#000000";
 					this.imgObj.fillText(
-							x4 - x3 > this.charPx * 3 ? amino_rev : amino_code[amino_rev],
+							x4 - x3 > this.charPx * 3 ? amino_rev.slice(0, 3) : amino_code[amino_rev.slice(0, 3)],
 							(x3 + x4) / 2 - this.charPx * 0.3 - this.charPx * 0.6 * (x4 - x3 > this.charPx * 3),
 							y6);
 				}
