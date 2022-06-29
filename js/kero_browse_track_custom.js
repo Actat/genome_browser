@@ -896,12 +896,10 @@ WgFastaAmino.prototype.getMenuDetail = function() {
 	if(this.translationTable == "Standard") checked[0] = "checked=\"checked\"";
 	if(this.translationTable == "Vertebrate Mitochondrial") checked[1] = "checked=\"checked\"";
 	var htmlStr = "";
-	htmlStr += "<div>";
-	htmlStr += "<input type=\"radio\" name=\"translationTable\" value=\"Standard\" id=\"Standard\" ";
-	htmlStr += checked[0] + " /><label for=\"Standard\">Standard</label>";
-	htmlStr += "<input type=\"radio\" name=\"translationTable\" value=\"Vertebrate_Mitochondrial\" id=\"Vertebrate_Mitochondrial\" ";
-	htmlStr += checked[1] + " /><label for=\"Vertebrate_Mitochondrial\">Vertebrate Mitochondrial</label>";
-	htmlStr += "</div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"Standard\" id=\"Standard\" ";
+	htmlStr += checked[0] + " /><label for=\"Standard\">Standard</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"translationTable\" value=\"Vertebrate_Mitochondrial\" id=\"Vertebrate_Mitochondrial\" ";
+	htmlStr += checked[1] + " /><label for=\"Vertebrate_Mitochondrial\">Vertebrate Mitochondrial</label></div>";
 	htmlStr += "<div class=\"modal_btn\"><input type=\"button\" id=\"apply_button\" value=\"Apply\" /><input type=\"button\" id=\"cancel_button\" value=\"Cancel\" /></div>";
 	return htmlStr;
 };
