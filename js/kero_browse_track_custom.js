@@ -1049,7 +1049,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						codon == "AUG" ? "#88FF88" :
 						amino.slice(-1) == ">" ? "#FFFF00" :
 						amino == "Ter" ? "#FF4488" :
-						(i + 1) % 6 < 3 ? "#AAAAAA" : "#FFFFFF";
+						(i + 1) % 6 < 3 ? "#888888" : "#AAAAAA";
 					this.imgObj.fillRect(x3, y3, x4 - x3, y4 - y3);
 				}
 				if(x4 - x3 > this.charPx) {
@@ -1080,7 +1080,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 						codon_rev == "AUG" ? "#88FF88" :
 						amino_rev.slice(-1) == ">" ? "#FFFF00" :
 						amino_rev == "Ter" ? "#FF4488" :
-						(i + 1) % 6 < 3 ? "#FFFFFF" : "#AAAAAA";
+						(i + 1) % 6 < 3 ? "#AAAAAA" : "#888888";
 					this.imgObj.fillRect(x3, y5, x4 - x3 + 1, y6 - y5);
 				}
 				if(x4 - x3 > this.charPx) {
