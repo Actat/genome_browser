@@ -1011,10 +1011,10 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 				}
 				var x3 = x1 - (width - 1) / (end - start + 1);
 				var x4 = x2 + (width - 1) / (end - start + 1);
-				var y3 = y1 + 12 + 10 * (i % 3);
+				var y3 = y1 + 12 + 10 * ((i + 1) % 3);
 				var y4 = y3 + 8;
-				var y5 = y3 + 30
-				var y6 = y4 + 30;
+				var y5 = y3 + 20 + 10 * (i % 3);
+				var y6 = y5 + 8;
 
 				// paint sequence
 				if(this.option.inColorFlg) {
