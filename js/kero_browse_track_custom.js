@@ -650,7 +650,7 @@ var WgFastaAmino = function(fa, fai, option) {
 	this.charPx = (this.option.charPx === undefined)? 10: this.option.charPx;
 	this.height = 82;
 	this.y;
-	this.showType = (this.option.showType)? this.option.showType: "squished";
+	this.showType = (this.option.showType)? this.option.showType: "forward";
 
 	this.fasta = new Fasta(fa, fai);
 };
@@ -760,7 +760,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 				}
-				if (this.showType == "collapsed" || !(char0 && char1 && char2)) {
+				if (this.showType == "onlyseq" || !(char0 && char1 && char2)) {
 					continue;
 				}
 				// paint amino acid (+strand)
@@ -793,7 +793,7 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 					this.imgObj.strokeStyle = "#000000";
 					this.imgObj.strokeRect(x3, y3, x4 - x3 + 1, y4 - y3 + 1);
 				}
-				if (this.showType == "squished") {
+				if (this.showType == "forward") {
 					continue;
 				}
 				// paint reverse strand
@@ -841,9 +841,9 @@ WgFastaAmino.prototype.paint = function(y, width, chr, start, end, strand) {
 	return status;
 };
 WgFastaAmino.prototype.setHeight = function(dt, width, chr, start, end) {
-	if (this.showType == "collapsed") {
+	if (this.showType == "onlyseq") {
 		this.height = 12;
-	} else if (this.showType == "squished") {
+	} else if (this.showType == "forward") {
 		this.height = 42;
 	} else {
 		this.height = 82;
@@ -851,18 +851,18 @@ WgFastaAmino.prototype.setHeight = function(dt, width, chr, start, end) {
 };
 WgFastaAmino.prototype.getMenuPopup = function() {
 	var checked = new Array("", "", "");
-	if(this.showType == "collapsed") checked[0] = "checked=\"checked\"";
-	if(this.showType == "expanded") checked[1] = "checked=\"checked\"";
-	if(this.showType == "squished") checked[2] = "checked=\"checked\"";
+	if(this.showType == "onlyseq") checked[0] = "checked=\"checked\"";
+	if(this.showType == "withrev") checked[1] = "checked=\"checked\"";
+	if(this.showType == "forward") checked[2] = "checked=\"checked\"";
 	var htmlStr = "";
 	htmlStr += "<div style=\"border:1px solid\"><table border=\"0\" width=\"100%\"><tr><th align=\"left\" bgcolor=\"#aaaaaa\" colspan=\"2\">Setting:</th></tr><tr>";
 	htmlStr += "<td bgcolor=\"#aaaaaa\">&nbsp;</td><td><form>";
-	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"collapsed\" id=\"collapsed\" ";
-	htmlStr += checked[0] + " /><label for=\"collapsed\">Only Sequence</label></div>";
-	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"expanded\" id=\"expanded\" ";
-	htmlStr += checked[1] + " /><label for=\"expanded\">With reverse strand</label></div>";
-	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"squished\" id=\"squished\" ";
-	htmlStr += checked[2] + " /><label for=\"squished\">Default</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"onlyseq\" id=\"onlyseq\" ";
+	htmlStr += checked[0] + " /><label for=\"onlyseq\">Only Sequence</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"withrev\" id=\"withrev\" ";
+	htmlStr += checked[1] + " /><label for=\"withrev\">With reverse strand</label></div>";
+	htmlStr += "<div><input type=\"radio\" name=\"show_type\" value=\"forward\" id=\"forward\" ";
+	htmlStr += checked[2] + " /><label for=\"forward\">Default</label></div>";
 	htmlStr += "</form>";
 	// htmlStr += "<hr /><a href=\"#\" class=\"det\">Detail...</a>";
 	htmlStr += "</td></tr></table></div>";
